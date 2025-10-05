@@ -112,6 +112,7 @@ This pipeline demonstrates core data engineering skills:
 ### Dimensional Model (Star Schema)
 
 **Dimension Table: `merchants_tb`**
+```
 +-------------------+-------------+--------------------------------+
 | Column            | Type        | Description                    |
 +-------------------+-------------+--------------------------------+
@@ -127,11 +128,11 @@ This pipeline demonstrates core data engineering skills:
 +-------------------+-------------+--------------------------------+
 | last_update       | TIMESTAMP   | Last modified timestamp        |
 +-------------------+-------------+--------------------------------+
-
+```
                         
 
 **Staging Table: `walmart_sales_stage`**
-
+```
 +-------------------+-------------+--------------------------------+
 | Column            | Type        | Description                    |
 +-------------------+-------------+--------------------------------+
@@ -151,11 +152,11 @@ This pipeline demonstrates core data engineering skills:
 +-------------------+-------------+--------------------------------+
 | last_update       | TIMESTAMP   | Data ingestion timestamp       |
 +-------------------+-------------+--------------------------------+
-
+```
 
 
 **Fact Table: `walmart_sales_tgt`** (Enriched with merchant details)
-
+```
    +-------------------+-------------+--------------------------------+
 | Column            | Type        | Description                    |
 +-------------------+-------------+--------------------------------+
@@ -181,7 +182,7 @@ This pipeline demonstrates core data engineering skills:
 +-------------------+-------------+--------------------------------+
 | last_update       | TIMESTAMP   | Last update timestamp          |
 +-------------------+-------------+--------------------------------+
-
+```
 
 
 **Design Rationale**:
