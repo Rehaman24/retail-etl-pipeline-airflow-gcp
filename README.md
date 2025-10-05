@@ -127,6 +127,7 @@ This pipeline demonstrates core data engineering skills:
 +-------------------+-------------+--------------------------------+
 | last_update       | TIMESTAMP   | Last modified timestamp        |
 +-------------------+-------------+--------------------------------+
+
                         
 
 **Staging Table: `walmart_sales_stage`**
