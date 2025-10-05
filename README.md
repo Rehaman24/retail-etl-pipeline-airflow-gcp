@@ -920,7 +920,39 @@ This project demonstrates proficiency in:
 
 ---
 
-⭐ **If you found this project helpful, please star the repository!**
+---
+
+## 💬 Feedback Welcome!
+
+This is a portfolio project and I'm actively seeking feedback from data engineers and hiring managers.
+
+### How to Provide Feedback
+
+**📋 Structured Code Review**
+- [View Discussion Template](https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp/discussions)
+- Click "New Discussion" → Select "Code Review" category
+- Share your insights on architecture, code quality, or best practices
+
+**💡 Quick Feedback**
+- ⭐ Star the repo if you found it valuable
+- 🐛 [Report issues](https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp/issues) for technical improvements
+- 💬 [Start a discussion](https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp/discussions) for general comments
+
+### What I'm Looking For
+- Code quality and best practices feedback
+- Architecture design suggestions
+- Interview readiness assessment
+- Real-world production considerations
+
+**All feedback is public and helps demonstrate continuous learning!**
+
+---
+
+## 📫 Connect With Me
+
+- **LinkedIn:** [Your Profile](https://linkedin.com/in/your-profile)
+- **Email:** rehamanalis1999@gmail.com
+
 
 
 
