@@ -62,44 +62,46 @@ This pipeline demonstrates core data engineering skills:
 
 ## Architecture
 
-     +------------------+
-   |  GCS Bucket      | <-- Raw JSON files (merchants + sales)
-   | bigquery_projects|
-   +--------+---------+
-            |
-            v
-   +------------------+
-   |  Airflow DAG     | <-- Scheduled daily at midnight UTC
-   | (walmart_sales_  |
-   |  etl_gcs)        |
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | Create Dataset   | <-- Creates Walmart_Dwh dataset
-   | & Tables Task    |     and staging/target tables
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | Load Data Tasks  | <-- Parallel: GCS → BigQuery
-   | (Task Group)     |     - merchants.json → merchants_tb
-   |                  |     - walmart_sales.json → stage table
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | Transform & Merge| <-- JOIN stage + merchants
-   | Task             |     UPSERT → walmart_sales_tgt (fact)
-   +------------------+
-            |
-            v
-   +------------------+
-   | BigQuery Tables  | <-- Final dimensional model
-   | - merchants_tb   |     (dimension + fact tables)
-   | - walmart_sales  |
-   |   _tgt (fact)    |
-   +------------------+
+       +------------------+
+       |  GCS Bucket      | <-- Raw JSON files (merchants + sales)
+       | bigquery_projects|
+       +--------+---------+
+                |
+                v
+       +------------------+
+       |  Airflow DAG     | <-- Scheduled daily at midnight UTC
+       | (walmart_sales_  |
+       |  etl_gcs)        |
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Create Dataset   | <-- Creates walmart_dwh dataset
+       | & Tables Task    |     and staging/target tables
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Load Data Tasks  | <-- Parallel: GCS → BigQuery
+       | (Task Group)     |     - merchants.json → merchants_tb
+       |                  |     - walmart_sales.json → stage table
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Transform & Merge| <-- JOIN stage + merchants
+       | Task             |     UPSERT → walmart_sales_tgt (fact)
+       +------------------+
+                |
+                v
+       +------------------+
+       | BigQuery Tables  | <-- Final dimensional model
+       | - merchants_tb   |     (dimension + fact tables)
+       | - walmart_sales  |
+       |   _tgt (fact)    |
+       +------------------+
+
+
 
 
 
@@ -325,28 +327,30 @@ create_dataset >> [create_merchants_table, create_walmart_sales_table, create_ta
 
 ### Visual Representation
 
-   +------------------+
-   | create_dataset   |
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | create_tables    | <-- Parallel: merchants_tb, 
-   | (3 tasks)        |     sales_stage, sales_tgt
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | load_data        | <-- Task Group: GCS → BigQuery
-   | (Task Group)     |     - merchants.json
-   |                  |     - walmart_sales.json
-   +--------+---------+
-            |
-            v
-   +------------------+
-   | merge_walmart_   | <-- JOIN + UPSERT operation
-   | sales            |
-   +------------------+
+          +------------------+
+       | create_dataset   |
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | create_tables    | <-- Parallel: merchants_tb, 
+       | (3 tasks)        |     sales_stage, sales_tgt
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | load_data        | <-- Task Group: GCS → BigQuery
+       | (Task Group)     |     - merchants.json
+       |                  |     - walmart_sales.json
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | merge_walmart_   | <-- JOIN + UPSERT operation
+       | sales            |
+       +------------------+
+
+       
 
 
 ### Dependency Rationale
