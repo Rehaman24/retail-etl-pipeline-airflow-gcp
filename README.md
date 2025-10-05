@@ -233,22 +233,37 @@ location='US'
 - **Purpose**: Final fact table with enriched sales data
 
 **Code Example**:
+## 2.3 Target Fact Table
+
+- **Task ID:** `create_target_table`
+- **Table Name:** `walmart_sales_tgt`
+- **Purpose:** Final fact table with enriched sales data
+
+<details>
+<summary><b>Click to view code example</b></summary>
+
 create_merchants_table = BigQueryCreateTableOperator(
-    task_id='create_merchants_table',
-    dataset_id='Walmart_Dwh',
-    table_id='merchants_tb',
-    table_resource={
-        "schema": {
-            "fields": [
-                {"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
-                {"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
-                {"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
-            ]
-        }
-    }
+task_id='create_merchants_table',
+dataset_id='Walmart_Dwh',
+table_id='merchants_tb',
+table_resource={
+"schema": {
+"fields": [
+{"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
+{"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
+{"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
+{"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
+{"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
+]
+}
+}
 )
+
+
+</details>
+
+**Why Runtime Table Creation?** Ensures schema consistency across environments and supports infrastructure-as-code principles.
+
 
 
 
