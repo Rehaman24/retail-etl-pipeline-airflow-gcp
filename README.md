@@ -47,6 +47,20 @@ Implements modular, reusable tasks with robust error handling and schema enforce
        |   _tgt (fact)    |
        +------------------+
 
+       
+# Task Dependencies
+create_dataset 
+    ↓
+[create_merchants_table, create_walmart_sales_table, create_target_table]
+    ↓
+load_data (Task Group)
+    ├── gcs_to_bq_merchants
+    └── gcs_to_bq_walmart_sales
+    ↓
+merge_walmart_sales
+
+
+
 
 # Data Model
 Dimensional Model (Star Schema)
