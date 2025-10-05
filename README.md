@@ -6,32 +6,48 @@ Orchestrates multi-stage ETL flow using Airflow.
 Loads JSON sales and merchant data from GCS to BigQuery staging tables.
 Joins and upserts enriched data via BigQuery MERGE.
 Implements modular, reusable tasks with robust error handling and schema enforcement.
+
 # Architecture
-GCS Bucket (bigquery_projects)
-├── walmart_ingestion/merchants/merchants.json
-└── walmart_ingestion/sales/walmart_sales.json
-                    ↓
-            Airflow DAG (Daily)
-                    ↓
-    ┌───────────────────────────────┐
-    │  Create Dataset & Tables      │
-    │  - walmart_dwh (dataset)      │
-    │  - merchants_tb (dimension)   │
-    │  - walmart_sales_stage        │
-    │  - walmart_sales_tgt (fact)   │
-    └───────────────────────────────┘
-                    ↓
-    ┌───────────────────────────────┐
-    │  Load Data from GCS           │
-    │  - merchants.json → merchants_tb     │
-    │  - walmart_sales.json → stage table  │
-    └───────────────────────────────┘
-                    ↓
-    ┌───────────────────────────────┐
-    │  MERGE Operation              │
-    │  JOIN stage + merchants       │
-    │  UPSERT into walmart_sales_tgt│
-    └───────────────────────────────┘
+       +------------------+
+       |  GCS Bucket      | <-- Raw JSON files (merchants + sales)
+       | bigquery_projects|
+       +--------+---------+
+                |
+                v
+       +------------------+
+       |  Airflow DAG     | <-- Scheduled daily at midnight UTC
+       | (walmart_sales_  |
+       |  etl_gcs)        |
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Create Dataset   | <-- Creates walmart_dwh dataset
+       | & Tables Task    |     and staging/target tables
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Load Data Tasks  | <-- Parallel: GCS → BigQuery
+       | (Task Group)     |     - merchants.json → merchants_tb
+       |                  |     - walmart_sales.json → stage table
+       +--------+---------+
+                |
+                v
+       +------------------+
+       | Transform & Merge| <-- JOIN stage + merchants
+       | Task             |     UPSERT → walmart_sales_tgt (fact)
+       +------------------+
+                |
+                v
+       +------------------+
+       | BigQuery Tables  | <-- Final dimensional model
+       | - merchants_tb   |     (dimension + fact tables)
+       | - walmart_sales  |
+       |   _tgt (fact)    |
+       +------------------+
+
+
 # Data Model
 Dimensional Model (Star Schema)
 Dimension Table: merchants_tb
