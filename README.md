@@ -239,6 +239,7 @@ location='US'
 - **Table Name:** `walmart_sales_tgt`
 - **Purpose:** Final fact table with enriched sales data
 
+```
 create_target_table = BigQueryCreateTableOperator(
     task_id='create_target_table',
     dataset_id='Walmart_Dwh',
@@ -260,7 +261,7 @@ create_target_table = BigQueryCreateTableOperator(
         }
     }
 )
-
+```
 
 **Why Runtime Table Creation?** Ensures schema consistency across environments and supports infrastructure-as-code principles.
 
