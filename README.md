@@ -221,24 +221,58 @@ location='US'
 - **Task ID**: `create_merchants_table`
 - **Table Name**: `merchants_tb`
 - **Purpose**: Stores merchant reference data (dimension table)
+  *Code Example**:
+  ```
+  create_merchants_table = BigQueryCreateTableOperator(
+    task_id='create_merchants_table',
+    dataset_id='Walmart_Dwh',
+    table_id='merchants_tb',
+    table_resource={
+        "schema": {
+            "fields": [
+                {"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
+                {"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
+            ]
+        }
+    }
+)
+---
 
 #### 2.2 Sales Staging Table
 - **Task ID**: `create_walmart_sales_table`
 - **Table Name**: `walmart_sales_stage`
 - **Purpose**: Temporary staging table for sales data ingestion
+```
+*Code Example**:
+create_walmart_sales_table = BigQueryCreateTableOperator(
+    task_id='create_walmart_sales_table',
+    dataset_id='Walmart_Dwh',
+    table_id='walmart_sales_stage',
+    table_resource={
+        "schema": {
+            "fields": [
+                {"name": "sale_id", "type": "STRING", "mode": "REQUIRED"},
+                {"name": "sale_date", "type": "DATE", "mode": "NULLABLE"},
+                {"name": "product_id", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "quantity_sold", "type": "INT64", "mode": "NULLABLE"},
+                {"name": "total_sale_amount", "type": "FLOAT64", "mode": "NULLABLE"},
+                {"name": "merchant_id", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
+            ]
+        }
+    }
+)
 
-#### 2.3 Target Fact Table
-- **Task ID**: `create_target_table`
-- **Table Name**: `walmart_sales_tgt`
-- **Purpose**: Final fact table with enriched sales data
-
-**Code Example**:
+```
 ## 2.3 Target Fact Table
 
 - **Task ID:** `create_target_table`
 - **Table Name:** `walmart_sales_tgt`
 - **Purpose:** Final fact table with enriched sales data
-
+*Code Example**:
 ```
 create_target_table = BigQueryCreateTableOperator(
     task_id='create_target_table',
@@ -264,9 +298,6 @@ create_target_table = BigQueryCreateTableOperator(
 ```
 
 **Why Runtime Table Creation?** Ensures schema consistency across environments and supports infrastructure-as-code principles.
-
-
-
 
 ---
 
@@ -320,6 +351,7 @@ gcs_to_bq_walmart_sales = GCSToBigQueryOperator(
 **MERGE Logic**:
 
 1. **JOIN Stage + Dimension**:
+ ```  
 SELECT
 S.sale_id,
 S.sale_date,
@@ -334,9 +366,11 @@ CURRENT_TIMESTAMP() AS last_update
 FROM steel-binder-473416-v3.Walmart_Dwh.walmart_sales_stage S
 LEFT JOIN steel-binder-473416-v3.Walmart_Dwh.merchants_tb M
 ON S.merchant_id = M.merchant_id
+```
+---
 
-
-2. **WHEN MATCHED** (Update existing records):
+3. **WHEN MATCHED** (Update existing records):
+```
 WHEN MATCHED THEN
 UPDATE SET
 T.sale_date = S.sale_date,
@@ -347,10 +381,12 @@ T.merchant_name = S.merchant_name,
 T.merchant_category = S.merchant_category,
 T.merchant_country = S.merchant_country,
 T.last_update = S.last_update
+```
 
 
-3. **WHEN NOT MATCHED** (Insert new records):
+5. **WHEN NOT MATCHED** (Insert new records):
 WHEN NOT MATCHED THEN
+```
 INSERT (
 sale_id, sale_date, product_id, quantity_sold, total_sale_amount,
 merchant_id, merchant_name, merchant_category, merchant_country, last_update
@@ -359,7 +395,7 @@ VALUES (
 S.sale_id, S.sale_date, S.product_id, S.quantity_sold, S.total_sale_amount,
 S.merchant_id, S.merchant_name, S.merchant_category, S.merchant_country, S.last_update
 )
-
+```
 
 **Benefits of MERGE Operation**:
 - ✅ Atomic operation (all-or-nothing)
@@ -432,7 +468,7 @@ create_dataset >> [create_merchants_table, create_walmart_sales_table, create_ta
 - Requires completed JOIN operation between datasets
 
 ### Execution Timeline Example
-
+```
 Time Task
 0:00 create_dataset starts
 0:10 create_dataset completes
@@ -448,7 +484,7 @@ Time Task
 1:00 merge_walmart_sales completes
 
 Total: ~60 seconds
-
+```
 
 **Without parallel execution, same pipeline would take ~90 seconds** (50% longer)
 
@@ -487,16 +523,8 @@ pip install -r requirements.txt
 2. Add new connection:
    - **Connection Id**: `google_cloud_default`
    - **Connection Type**: `Google Cloud`
-   - **Project Id**: `your-gcp-project-id`
-   - **Keyfile Path**: `/path/to/service-account-key.json`
+   - **Project Id**: `your-gcp-project-id`   - **Keyfile Path**: `/path/to/service-account-key.json`
 
-**Via CLI:**
-airflow connections add 'google_cloud_default'
---conn-type 'google_cloud_platform'
---conn-extra '{
-"extra__google_cloud_platform__project": "your-project-id",
-"extra__google_cloud_platform__key_path": "/path/to/key.json"
-}'
 
 
 ### Step 4: Prepare Sample Data in GCS
@@ -545,15 +573,19 @@ gcloud composer environments storage dags import
 ## Testing & Verification
 
 ### 1. Verify Dataset Creation
+```
 SELECT schema_name
 FROM your-project-id.INFORMATION_SCHEMA.SCHEMATA
 WHERE schema_name = 'Walmart_Dwh';
+```
 
 
 ### 2. Verify All Tables Created
+```
 SELECT table_name, table_type
 FROM your-project-id.Walmart_Dwh.INFORMATION_SCHEMA.TABLES
 ORDER BY table_name;
+```
 
 -- Expected:
 -- merchants_tb (TABLE)
@@ -562,23 +594,28 @@ ORDER BY table_name;
 
 
 ### 3. Check Merchant Data Loaded
+```
 SELECT
 COUNT(*) as total_merchants,
 COUNT(DISTINCT merchant_category) as unique_categories,
 COUNT(DISTINCT merchant_country) as countries
 FROM your-project-id.Walmart_Dwh.merchants_tb;
+```
 
 
 ### 4. Verify Staging Table Data
+```
 SELECT
 COUNT(*) as record_count,
 MIN(sale_date) as earliest_sale,
 MAX(sale_date) as latest_sale,
 SUM(total_sale_amount) as total_revenue
 FROM your-project-id.Walmart_Dwh.walmart_sales_stage;
+```
 
 
 ### 5. Verify MERGE Results in Fact Table
+```
 SELECT
 COUNT(*) as total_records,
 COUNT(DISTINCT merchant_id) as unique_merchants,
@@ -586,9 +623,11 @@ COUNT(DISTINCT product_id) as unique_products,
 SUM(total_sale_amount) as total_revenue,
 AVG(total_sale_amount) as avg_transaction_value
 FROM your-project-id.Walmart_Dwh.walmart_sales_tgt;
+```
 
 
 ### 6. Verify Data Enrichment (Merchant Join)
+```
 SELECT
 sale_id,
 merchant_id,
@@ -599,6 +638,7 @@ total_sale_amount
 FROM your-project-id.Walmart_Dwh.walmart_sales_tgt
 WHERE merchant_name IS NOT NULL -- Verify enrichment worked
 LIMIT 10;
+```
 
 
 ### 7. Test UPSERT Logic
@@ -610,20 +650,22 @@ gsutil cp updated_sales.json gs://your-bucket/walmart_ingestion/sales/walmart_sa
 
 Trigger DAG in Airflow UI
 Verify insertion with SQL query
+```
 SELECT * FROM your-project-id.Walmart_Dwh.walmart_sales_tgt
 WHERE sale_id = 'NEW_SALE_ID';
+```
 
 
 **Test Case 2: Update Existing Record**
 Modify existing sale in your data file
 Upload file and trigger DAG
 Verify update (not duplicate)
+```
 SELECT COUNT(*) as record_count
 FROM your-project-id.Walmart_Dwh.walmart_sales_tgt
 WHERE sale_id = 'EXISTING_SALE_ID';
 -- Expected: Still 1 (updated, not duplicated)
-
-
+```
 ---
 
 ## Monitoring
@@ -637,6 +679,7 @@ WHERE sale_id = 'EXISTING_SALE_ID';
 
 ### BigQuery Job History
 -- Check recent jobs
+```
 SELECT
 job_id,
 user_email,
@@ -649,10 +692,8 @@ WHERE DATE(creation_time) = CURRENT_DATE()
 AND statement_type IN ('MERGE', 'INSERT', 'CREATE_TABLE')
 ORDER BY creation_time DESC
 LIMIT 10;
-
-
+```
 ---
-
 ## Key Features Implemented
 
 ✅ **Dynamic Schema Creation**: Tables created at runtime using Airflow operators  
@@ -696,37 +737,6 @@ LIMIT 10;
 - **Data Modeling**: Star schema design, dimensional modeling, fact/dimension tables
 - **ETL Concepts**: Extract-Transform-Load patterns, staging layers, data enrichment
 - **Debugging**: Log analysis, error tracing, troubleshooting distributed systems
-
----
-
-## Project Structure
-
-retail-etl-pipeline-airflow-gcp/
-├── README.md # This file
-├── .gitignore # Git ignore rules
-├── LICENSE # MIT License
-├── requirements.txt # Python dependencies
-│
-├── dags/
-│ └── airflow_walmart_data_bigquery_dag.py # Main DAG file
-│
-├── data/
-│ ├── merchants_1.json # Sample merchant data
-│ └── walmart_sales_1.json # Sample sales data
-│
-├── sql/
-│ ├── verify_queries.sql # Testing queries
-│ ├── merge_query.sql # MERGE logic documentation
-│ └── ddl_backup.sql # Manual table creation (backup)
-│
-└── docs/
-├── architecture_diagram.png
-└── screenshots/
-├── airflow_dag_success.png
-└── bigquery_results.png
-
-
----
 
 ## Troubleshooting
 
@@ -780,12 +790,6 @@ airflow scheduler --daemon
 - [ ] Add CI/CD pipeline with GitHub Actions for automated DAG deployment
 - [ ] Create data lineage tracking with custom Airflow operators
 - [ ] Implement cost monitoring dashboard
-
----
-
-## License
-
-MIT License - Feel free to use this project as a template for your own data engineering work.
 
 ---
 
