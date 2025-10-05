@@ -234,21 +234,22 @@ location='US'
 
 **Code Example**:
 create_merchants_table = BigQueryCreateTableOperator(
-task_id='create_merchants_table',
-dataset_id='Walmart_Dwh',
-table_id='merchants_tb',
-table_resource={
-"schema": {
-"fields": [
-{"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
-{"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
-{"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
-{"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
-{"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"},
-]
-}
-}
+    task_id='create_merchants_table',
+    dataset_id='Walmart_Dwh',
+    table_id='merchants_tb',
+    table_resource={
+        "schema": {
+            "fields": [
+                {"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
+                {"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
+            ]
+        }
+    }
 )
+
 
 
 **Why Runtime Table Creation?**: Ensures schema consistency across environments and supports infrastructure-as-code principles.
