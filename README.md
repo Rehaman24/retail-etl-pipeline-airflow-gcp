@@ -318,6 +318,7 @@ create_target_table = BigQueryCreateTableOperator(
 - **Destination**: `steel-binder-473416-v3.Walmart_Dwh.walmart_sales_stage`
 
 **Code Example**:
+```
 with TaskGroup('load_data') as load_data:
 gcs_to_bq_merchant = GCSToBigQueryOperator(
 task_id='gcs_to_bq_merchants',
@@ -335,6 +336,7 @@ gcs_to_bq_walmart_sales = GCSToBigQueryOperator(
     write_disposition='WRITE_TRUNCATE',
     source_format='NEWLINE_DELIMITED_JSON',
 )
+```
 
 
 **Why Task Groups?**: Both loading operations are independent and run in parallel, reducing total execution time by ~30%.
@@ -540,23 +542,14 @@ gsutil cp data/walmart_sales_1.json gs://your-bucket/walmart_ingestion/sales/
 
 ### Step 5: Deploy DAG to Airflow
 
-**For Local Airflow**:
-Copy DAG to Airflow folder
-cp dags/airflow_walmart_data_bigquery_dag.py ~/airflow/dags/
-
-Verify DAG syntax
-python ~/airflow/dags/airflow_walmart_data_bigquery_dag.py
-
-List DAGs
-airflow dags list | grep walmart
-
-
 **For Cloud Composer**:
+```
 Upload to Composer environment
 gcloud composer environments storage dags import
 --environment=your-composer-env
 --location=us-central1
 --source=dags/airflow_walmart_data_bigquery_dag.py
+```
 
 
 ### Step 6: Enable and Trigger DAG
@@ -586,12 +579,12 @@ SELECT table_name, table_type
 FROM your-project-id.Walmart_Dwh.INFORMATION_SCHEMA.TABLES
 ORDER BY table_name;
 ```
-
+```
 -- Expected:
 -- merchants_tb (TABLE)
 -- walmart_sales_stage (TABLE)
 -- walmart_sales_tgt (TABLE)
-
+```
 
 ### 3. Check Merchant Data Loaded
 ```
@@ -654,7 +647,6 @@ Verify insertion with SQL query
 SELECT * FROM your-project-id.Walmart_Dwh.walmart_sales_tgt
 WHERE sale_id = 'NEW_SALE_ID';
 ```
-
 
 **Test Case 2: Update Existing Record**
 Modify existing sale in your data file
@@ -774,10 +766,7 @@ tail -f ~/airflow/logs/scheduler/latest/*.log
 Restart scheduler if needed
 pkill -f "airflow scheduler"
 airflow scheduler --daemon
-
-
 ---
-
 ## Future Enhancements
 
 - [ ] Implement incremental loading (only process new/changed data)
@@ -799,8 +788,6 @@ airflow scheduler --daemon
 Data Engineer | 2 Years Experience  
 **LinkedIn**: [linkedin.com/in/rehmanali24](https://www.linkedin.com/in/rehmanali24/)  
 **GitHub**: [github.com/Rehaman24](https://github.com/Rehaman24)
-
----
 
 ## Acknowledgments
 
