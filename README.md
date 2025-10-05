@@ -409,14 +409,15 @@ S.merchant_id, S.merchant_name, S.merchant_category, S.merchant_country, S.last_
 ---
 
 ## DAG Configuration
-
+```
 DAG ID: walmart_sales_etl_gcs
-Owner: steel-binder-473416-v3
+Owner: Project_Id in your GCP console.
 Schedule: @daily (runs once per day at midnight UTC)
 Start Date: days_ago(1)
 Catchup: False (only processes current data, no backfilling)
 Retries: 1 (automatically retries failed tasks once)
 Max Active Runs: 1 (prevents concurrent executions)
+```
 
 ## Task Dependencies
 create_dataset >> [create_merchants_table, create_walmart_sales_table, create_target_table] >> load_data >> merge_walmart_sales
@@ -495,6 +496,7 @@ Total: ~60 seconds
 ## Prerequisites
 
 ### Software Requirements
+```
 - Python 3.8+
 - Apache Airflow 2.7+
 - Access to GCP project with BigQuery and GCS
@@ -503,21 +505,21 @@ apache-airflow==2.7.0
 apache-airflow-providers-google==10.10.0
 google-cloud-bigquery==3.11.4
 google-cloud-storage==2.10.0
-
-
----
+```
 
 ## Setup Instructions
 
 ### Step 1: Clone Repository
+```
 git clone https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp.git
 cd retail-etl-pipeline-airflow-gcp
+```
 
 
 ### Step 2: Install Dependencies
+```
 pip install -r requirements.txt
-
-
+```
 ### Step 3: Configure GCP Connection in Airflow
 
 **Via Airflow UI:**
@@ -735,14 +737,9 @@ LIMIT 10;
 ### Issue: DAG not appearing in Airflow UI
 **Solution**: 
 Check DAG file for syntax errors
-python dags/airflow_walmart_data_bigquery_dag.py
-
-Verify file is in correct location
-ls ~/airflow/dags/
-
-Refresh Airflow scheduler
-airflow scheduler --daemon
-
+-python dags/airflow_walmart_data_bigquery_dag.py
+-Verify file is in correct location
+-Refresh Airflow scheduler
 
 ### Issue: "Table already exists" error
 **Solution**: Tables are created with idempotent design. This is expected behavior on re-runs.
@@ -753,19 +750,9 @@ Verify file exists
 gsutil ls gs://your-bucket/walmart_ingestion/merchants/
 gsutil ls gs://your-bucket/walmart_ingestion/sales/
 
-
 ### Issue: MERGE query timeout
 **Solution**: Check BigQuery quota limits and network connectivity to GCP
 
-### Issue: Task stuck in "running" state
-**Solution**:
-
-Check Airflow scheduler logs
-tail -f ~/airflow/logs/scheduler/latest/*.log
-
-Restart scheduler if needed
-pkill -f "airflow scheduler"
-airflow scheduler --daemon
 ---
 ## Future Enhancements
 
