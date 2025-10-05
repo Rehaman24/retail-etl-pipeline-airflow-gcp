@@ -112,39 +112,75 @@ This pipeline demonstrates core data engineering skills:
 ### Dimensional Model (Star Schema)
 
 **Dimension Table: `merchants_tb`**
-Column             |  Data Type             |  Description                                     
--------------------+------------------------+--------------------------------------------------
-merchant_id        |  STRING (PRIMARY KEY)  |  Unique merchant identifier                      
-merchant_name      |  STRING                |  Merchant business name                          
-merchant_category  |  STRING                |  Business category (Electronics, Groceries, etc.)
-merchant_country   |  STRING                |  Country of operation                            
-last_update        |  TIMESTAMP             |  Last modified timestamp                         
++-------------------+-------------+--------------------------------+
+| Column            | Type        | Description                    |
++-------------------+-------------+--------------------------------+
+| merchant_id       | STRING      | PRIMARY KEY                    |
+|                   |             | Unique merchant identifier     |
++-------------------+-------------+--------------------------------+
+| merchant_name     | STRING      | Merchant business name         |
++-------------------+-------------+--------------------------------+
+| merchant_category | STRING      | Business category              |
+|                   |             | (Electronics, Groceries, etc.) |
++-------------------+-------------+--------------------------------+
+| merchant_country  | STRING      | Country of operation           |
++-------------------+-------------+--------------------------------+
+| last_update       | TIMESTAMP   | Last modified timestamp        |
++-------------------+-------------+--------------------------------+
+                        
 
 **Staging Table: `walmart_sales_stage`**
-Column             |  Data Type             |  Description             
--------------------+------------------------+--------------------------
-sale_id            |  STRING (PRIMARY KEY)  |  Unique sale identifier  
-sale_date          |  DATE                  |  Transaction date        
-product_id         |  STRING                |  Product identifier      
-quantity_sold      |  INT64                 |  Units sold              
-total_sale_amount  |  FLOAT64               |  Total transaction value 
-merchant_id        |  STRING (FOREIGN KEY)  |  Links to merchants_tb   
-last_update        |  TIMESTAMP             |  Data ingestion timestamp
+
++-------------------+-------------+--------------------------------+
+| Column            | Type        | Description                    |
++-------------------+-------------+--------------------------------+
+| sale_id           | STRING      | PRIMARY KEY                    |
+|                   |             | Unique sale identifier         |
++-------------------+-------------+--------------------------------+
+| sale_date         | DATE        | Transaction date               |
++-------------------+-------------+--------------------------------+
+| product_id        | STRING      | Product identifier             |
++-------------------+-------------+--------------------------------+
+| quantity_sold     | INT64       | Units sold                     |
++-------------------+-------------+--------------------------------+
+| total_sale_amount | FLOAT64     | Total transaction value        |
++-------------------+-------------+--------------------------------+
+| merchant_id       | STRING      | FOREIGN KEY                    |
+|                   |             | Links to merchants_tb          |
++-------------------+-------------+--------------------------------+
+| last_update       | TIMESTAMP   | Data ingestion timestamp       |
++-------------------+-------------+--------------------------------+
+
 
 
 **Fact Table: `walmart_sales_tgt`** (Enriched with merchant details)
-Column             |  Data Type             |  Description                
--------------------+------------------------+-----------------------------
-sale_id            |  STRING (PRIMARY KEY)  |  Unique sale identifier     
-sale_date          |  DATE                  |  Transaction date           
-product_id         |  STRING                |  Product identifier         
-quantity_sold      |  INT64                 |  Units sold                 
-total_sale_amount  |  FLOAT64               |  Total transaction value    
-merchant_id        |  STRING (FOREIGN KEY)  |  Links to merchants_tb      
-merchant_name      |  STRING                |  Denormalized from dimension
-merchant_category  |  STRING                |  Denormalized from dimension
-merchant_country   |  STRING                |  Denormalized from dimension
-last_update        |  TIMESTAMP             |  Last update timestamp      
+
+   +-------------------+-------------+--------------------------------+
+| Column            | Type        | Description                    |
++-------------------+-------------+--------------------------------+
+| sale_id           | STRING      | PRIMARY KEY                    |
+|                   |             | Unique sale identifier         |
++-------------------+-------------+--------------------------------+
+| sale_date         | DATE        | Transaction date               |
++-------------------+-------------+--------------------------------+
+| product_id        | STRING      | Product identifier             |
++-------------------+-------------+--------------------------------+
+| quantity_sold     | INT64       | Units sold                     |
++-------------------+-------------+--------------------------------+
+| total_sale_amount | FLOAT64     | Total transaction value        |
++-------------------+-------------+--------------------------------+
+| merchant_id       | STRING      | FOREIGN KEY                    |
+|                   |             | Links to merchants_tb          |
++-------------------+-------------+--------------------------------+
+| merchant_name     | STRING      | Denormalized from dimension    |
++-------------------+-------------+--------------------------------+
+| merchant_category | STRING      | Denormalized from dimension    |
++-------------------+-------------+--------------------------------+
+| merchant_country  | STRING      | Denormalized from dimension    |
++-------------------+-------------+--------------------------------+
+| last_update       | TIMESTAMP   | Last update timestamp          |
++-------------------+-------------+--------------------------------+
+
 
 
 **Design Rationale**:
