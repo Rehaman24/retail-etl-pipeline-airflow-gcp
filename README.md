@@ -239,35 +239,33 @@ location='US'
 - **Table Name:** `walmart_sales_tgt`
 - **Purpose:** Final fact table with enriched sales data
 
-<details>
-<summary><b>Click to view code example</b></summary>
-
-create_merchants_table = BigQueryCreateTableOperator(
-task_id='create_merchants_table',
-dataset_id='Walmart_Dwh',
-table_id='merchants_tb',
-table_resource={
-"schema": {
-"fields": [
-{"name": "merchant_id", "type": "STRING", "mode": "REQUIRED"},
-{"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
-{"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
-{"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
-{"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
-]
-}
-}
+create_target_table = BigQueryCreateTableOperator(
+    task_id='create_target_table',
+    dataset_id='Walmart_Dwh',
+    table_id='walmart_sales_tgt',
+    table_resource={
+        "schema": {
+            "fields": [
+                {"name": "sale_id", "type": "STRING", "mode": "REQUIRED"},
+                {"name": "sale_date", "type": "DATE", "mode": "NULLABLE"},
+                {"name": "product_id", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "quantity_sold", "type": "INT64", "mode": "NULLABLE"},
+                {"name": "total_sale_amount", "type": "FLOAT64", "mode": "NULLABLE"},
+                {"name": "merchant_id", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_name", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_category", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "merchant_country", "type": "STRING", "mode": "NULLABLE"},
+                {"name": "last_update", "type": "TIMESTAMP", "mode": "NULLABLE"}
+            ]
+        }
+    }
 )
 
-
-</details>
 
 **Why Runtime Table Creation?** Ensures schema consistency across environments and supports infrastructure-as-code principles.
 
 
 
-
-**Why Runtime Table Creation?**: Ensures schema consistency across environments and supports infrastructure-as-code principles.
 
 ---
 
