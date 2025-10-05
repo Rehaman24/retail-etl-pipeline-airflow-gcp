@@ -62,7 +62,7 @@ This pipeline demonstrates core data engineering skills:
 
 ## Architecture
 
-   +------------------+
+     +------------------+
    |  GCS Bucket      | <-- Raw JSON files (merchants + sales)
    | bigquery_projects|
    +--------+---------+
@@ -100,6 +100,8 @@ This pipeline demonstrates core data engineering skills:
    | - walmart_sales  |
    |   _tgt (fact)    |
    +------------------+
+
+
 
 ---
 
