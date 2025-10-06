@@ -713,12 +713,12 @@ The pipeline runs successfully on a daily schedule with proper task orchestratio
 ### BigQuery Data Warehouse
 
 #### Table Creation & Schema Management
-![Table Creation](screenshots/bigquery/BigQuery_Table_creation.png)
+![Table Creation](screenshots/bigquery/BigQuery_Table _creation.png)
 
 *Runtime table creation via Airflow operators ensuring schema consistency*
 
 #### Merchant Table Schema
-![Merchant Schema](screenshots/bigquery/BigQuery_Merchant_Table_Schema_Creation.png)
+![Merchant Schema](screenshots/bigquery/BigQuery_Merchant_Table _Schema_Creation.png)
 
 *Dimension table with merchant reference data (merchant_id, name, category, country)*
 
@@ -733,7 +733,7 @@ The pipeline runs successfully on a daily schedule with proper task orchestratio
 *Staging area for raw sales data before enrichment*
 
 #### Walmart Sales Target Table Schema
-![Target Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Schema.png)
+![Target Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Schema_Preview.png)
 
 *Fact table with 10 columns including denormalized merchant details*
 
@@ -746,6 +746,7 @@ The pipeline runs successfully on a daily schedule with proper task orchestratio
 ![Sales Data](screenshots/bigquery/BigQuery_Walmart_Sales_Table_Data_Preview.png)
 
 *Final sales data showing successful JOIN with merchant dimension*
+
 
 ---
 
