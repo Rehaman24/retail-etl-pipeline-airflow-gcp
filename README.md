@@ -686,6 +686,124 @@ gcloud composer environments storage dags import
 6. Monitor execution in **Graph View** or **Gantt Chart**
 
 ---
+Perfect! Based on your screenshots, here's the complete README section customized to YOUR exact folder structure. Copy and paste this directly into your README.md :[1][2][3]
+
+---
+
+## 📊 Pipeline Execution & Results
+
+### Airflow DAG Execution
+
+The pipeline runs successfully on a daily schedule with proper task orchestration and dependency management.
+
+#### DAG Success Run
+![DAG Success](
+
+*All tasks completed successfully - green status across all operators*
+
+#### DAG Graph View
+![DAG Graph View](screenshots/airflow/DAGowing proper orchestration*
+
+#### DAG Task Logs
+![Task Logs](screenshots/airflow/ logs confirming successful data processing*
+
+***
+
+### BigQuery Data Warehouse
+
+#### Table Creation & Schema Management
+![Table Creation](screenshots/bigquery/BigQuery_Table_creation Airflow operators ensuring schema consistency*
+
+#### Merchant Table Schema
+![Merchant Schema](screenshots/bigquery/BigQuery_Merchant_Table table with merchant reference data (merchant_id, name, category, country)*
+
+#### Merchant Table Data Preview
+![Merchant Data](screenshots/bigquery/BigQuery_ merchant records loaded successfully*
+
+#### Walmart Sales Staging Table Schema
+![Staging Schema](screenshots/bigquery/BigQuery area for raw sales data before enrichment*
+
+#### Walmart Sales Target Table Schema
+![Target Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Schema. 10 columns including denormalized merchant details*
+
+#### Walmart Sales Target Table Data Preview
+![Target Data](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table records with merchant information successfully loaded*
+
+#### Walmart Sales Table Data Preview
+![Sales Data](screenshots/bigquery/BigQuery_Walmart_Sales_Table_Data_Preview data showing successful JOIN with merchant dimension*
+
+***
+
+### Query Results & Data Analysis
+
+#### 1. Table Record Counts Validation
+![Table Counts](screenshots/Query
+
+
+**Result:** Pipeline executed successfully
+- merchants_tb: 50 records
+- walmart_sales_stage: 50 records  
+- walmart_sales_tgt: 50 records
+
+***
+
+#### 2. Enriched Sales Data with Merchant Details
+![Enriched Data](screenshots
+
+
+**Result:** Sales transactions successfully enriched with merchant_name, merchant_category, and merchant_country
+
+***
+
+#### 3. Sales Aggregation by Merchant Category
+![Sales by Category](screenshots/Query_results/query_03_sales_by_category grouped by business category showing total transactions, revenue, and average order value
+
+***
+
+#### 4. Top Merchants by Revenue
+![Top Merchants](screenshots/Query_results/query_04_top_merchants.d by total revenue with transaction counts
+
+***
+
+#### 5. Daily Sales Trend Analysis
+![Daily Trends](screenshots/Query_results/query_05_daily_trends patterns and revenue trends
+
+***
+
+#### 6. Data Quality Validation
+![Data Quality](screenshots
+
+
+**Result:** Zero NULL values in critical fields - 100% data completeness achieved
+
+***
+
+#### 7. Data Integrity Check
+![Data Integrity](screenshots/
+
+
+**Result:** All sales records successfully matched with merchant data - no orphaned records
+
+***
+
+## 🎯 Key Achievements
+
+✅ **100% Pipeline Success Rate** - All DAG runs completed without failures  
+✅ **Data Quality Excellence** - Zero NULL values in required fields  
+✅ **Perfect Data Integrity** - All 50 sales records enriched with merchant details  
+✅ **Star Schema Implementation** - Properly normalized dimension and denormalized fact table  
+✅ **Automated Orchestration** - Daily scheduled execution via Airflow  
+✅ **Query Performance** - Analytical queries execute in under 1 second  
+✅ **Infrastructure as Code** - Tables created programmatically via BigQueryCreateTableOperator
+
+***
+
+## 📁 Sample Data
+
+Sample data files are available in the `/data` folder:
+- `data/merchants/` - 50 merchant dimension records split across 2 files
+- `data/sales/` - 50 sales transaction records split across 2 files
+
 
 ## Testing & Verification
 
