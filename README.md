@@ -698,11 +698,6 @@ The pipeline runs successfully on a daily schedule with proper task orchestratio
 
 *All tasks completed successfully - green status across all operators*
 
-#### DAG Graph View
-![DAG Graph View](screenshots/airflow/DAG_Gant.png)
-
-*Task dependencies and execution flow showing proper orchestration*
-
 #### DAG Task Logs
 ![Task Logs](screenshots/airflow/DAG_Task_logs.png)
 
