@@ -686,9 +686,6 @@ gcloud composer environments storage dags import
 6. Monitor execution in **Graph View** or **Gantt Chart**
 
 ---
-Perfect! Based on your screenshots, here's the complete README section customized to YOUR exact folder structure. Copy and paste this directly into your README.md :[1][2][3]
-
----
 
 ## 📊 Pipeline Execution & Results
 
@@ -697,94 +694,114 @@ Perfect! Based on your screenshots, here's the complete README section customize
 The pipeline runs successfully on a daily schedule with proper task orchestration and dependency management.
 
 #### DAG Success Run
-![DAG Success](
+![DAG Success](screenshots/airflow/DAG_Success.png)
 
 *All tasks completed successfully - green status across all operators*
 
 #### DAG Graph View
-![DAG Graph View](screenshots/airflow/DAGowing proper orchestration*
+![DAG Graph View](screenshots/airflow/DAG_Gant.png)
+
+*Task dependencies and execution flow showing proper orchestration*
 
 #### DAG Task Logs
-![Task Logs](screenshots/airflow/ logs confirming successful data processing*
+![Task Logs](screenshots/airflow/DAG_Task_logs.png)
 
-***
+*Detailed execution logs confirming successful data processing*
+
+---
 
 ### BigQuery Data Warehouse
 
 #### Table Creation & Schema Management
-![Table Creation](screenshots/bigquery/BigQuery_Table_creation Airflow operators ensuring schema consistency*
+![Table Creation](screenshots/bigquery/BigQuery_Table_creation.png)
+
+*Runtime table creation via Airflow operators ensuring schema consistency*
 
 #### Merchant Table Schema
-![Merchant Schema](screenshots/bigquery/BigQuery_Merchant_Table table with merchant reference data (merchant_id, name, category, country)*
+![Merchant Schema](screenshots/bigquery/BigQuery_Merchant_Table_Schema_Creation.png)
+
+*Dimension table with merchant reference data (merchant_id, name, category, country)*
 
 #### Merchant Table Data Preview
-![Merchant Data](screenshots/bigquery/BigQuery_ merchant records loaded successfully*
+![Merchant Data](screenshots/bigquery/BigQuery_Merchant_Table_DataPreview.png)
+
+*50 merchant records loaded successfully*
 
 #### Walmart Sales Staging Table Schema
-![Staging Schema](screenshots/bigquery/BigQuery area for raw sales data before enrichment*
+![Staging Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Table_Schema_Preview.png)
+
+*Staging area for raw sales data before enrichment*
 
 #### Walmart Sales Target Table Schema
-![Target Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Schema. 10 columns including denormalized merchant details*
+![Target Schema](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Schema.png)
+
+*Fact table with 10 columns including denormalized merchant details*
 
 #### Walmart Sales Target Table Data Preview
-![Target Data](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table records with merchant information successfully loaded*
+![Target Data](screenshots/bigquery/BigQuery_Merchant_Sales_Target_Table_Data_Preview.png)
+
+*50 enriched sales records with merchant information successfully loaded*
 
 #### Walmart Sales Table Data Preview
-![Sales Data](screenshots/bigquery/BigQuery_Walmart_Sales_Table_Data_Preview data showing successful JOIN with merchant dimension*
+![Sales Data](screenshots/bigquery/BigQuery_Walmart_Sales_Table_Data_Preview.png)
 
-***
+*Final sales data showing successful JOIN with merchant dimension*
+
+---
 
 ### Query Results & Data Analysis
 
 #### 1. Table Record Counts Validation
-![Table Counts](screenshots/Query
-
+![Table Counts](screenshots/Query_results/query_01_table_counts.png)
 
 **Result:** Pipeline executed successfully
 - merchants_tb: 50 records
 - walmart_sales_stage: 50 records  
 - walmart_sales_tgt: 50 records
 
-***
+---
 
 #### 2. Enriched Sales Data with Merchant Details
-![Enriched Data](screenshots
-
+![Enriched Data](screenshots/Query_results/query_02_enriched_data.png)
 
 **Result:** Sales transactions successfully enriched with merchant_name, merchant_category, and merchant_country
 
-***
+---
 
 #### 3. Sales Aggregation by Merchant Category
-![Sales by Category](screenshots/Query_results/query_03_sales_by_category grouped by business category showing total transactions, revenue, and average order value
+![Sales by Category](screenshots/Query_results/query_03_sales_by_category.png)
 
-***
+**Result:** Revenue metrics grouped by business category showing total transactions, revenue, and average order value
+
+---
 
 #### 4. Top Merchants by Revenue
-![Top Merchants](screenshots/Query_results/query_04_top_merchants.d by total revenue with transaction counts
+![Top Merchants](screenshots/Query_results/query_04_top_merchants.png)
 
-***
+**Result:** Top 10 merchants ranked by total revenue with transaction counts
+
+---
 
 #### 5. Daily Sales Trend Analysis
-![Daily Trends](screenshots/Query_results/query_05_daily_trends patterns and revenue trends
+![Daily Trends](screenshots/Query_results/query_05_daily_trends.png)
 
-***
+**Result:** Time-series analysis showing daily transaction patterns and revenue trends
+
+---
 
 #### 6. Data Quality Validation
-![Data Quality](screenshots
-
+![Data Quality](screenshots/Query_results/query_06_data_quality.png)
 
 **Result:** Zero NULL values in critical fields - 100% data completeness achieved
 
-***
+---
 
 #### 7. Data Integrity Check
-![Data Integrity](screenshots/
-
+![Data Integrity](screenshots/Query_results/query_09_data_integrity.png)
 
 **Result:** All sales records successfully matched with merchant data - no orphaned records
 
-***
+---
 
 ## 🎯 Key Achievements
 
@@ -796,14 +813,21 @@ The pipeline runs successfully on a daily schedule with proper task orchestratio
 ✅ **Query Performance** - Analytical queries execute in under 1 second  
 ✅ **Infrastructure as Code** - Tables created programmatically via BigQueryCreateTableOperator
 
-***
+---
 
-## 📁 Sample Data
+## 📁 Project Data
 
-Sample data files are available in the `/data` folder:
-- `data/merchants/` - 50 merchant dimension records split across 2 files
-- `data/sales/` - 50 sales transaction records split across 2 files
+The pipeline processes real retail transaction data stored in the `/data` folder:
 
+- **`data/merchants/`** - Merchant dimension data (50 records)
+  - `merchants_1.json` - First batch of merchant records
+  - `merchants_2.json` - Second batch of merchant records
+
+- **`data/sales/`** - Sales transaction data (50 records)
+  - `walmart_sales_1.json` - First batch of sales transactions
+  - `walmart_sales_2.json` - Second batch of sales transactions
+
+The pipeline demonstrates the ability to process multiple JSON files from GCS and merge them into a unified data warehouse structure.
 
 ## Testing & Verification
 
