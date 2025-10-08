@@ -1075,6 +1075,11 @@ This is a portfolio project and I'm actively seeking feedback from data engineer
 - ⭐ Star the repo if you found it valuable
 - 🐛 [Report issues](https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp/issues) for technical improvements
 - 💬 [Start a discussion](https://github.com/Rehaman24/retail-etl-pipeline-airflow-gcp/discussions) for general comments
+  
+**Feedback:**  
+**Provider’s Name:**  
+**Position:**  
+**Company:**  
 
 ### What I'm Looking For
 - Code quality and best practices feedback
