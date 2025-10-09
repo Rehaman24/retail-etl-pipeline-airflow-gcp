@@ -18,6 +18,14 @@
 - **Production features:** Star schema modeling, parallel task execution, idempotent design
 - **🎥 [Watch 3-min demo →](link)** | **📊 [See live results →](#-pipeline-execution--results)**
 
+## 🚀 Quick Start Guide
+
+**👔 For Recruiters (30 sec):** [TL;DR Summary](#-tldr-for-recruiters-30-second-summary) → [Watch Demo](#) → [Business Impact](#-business-impact--real-world-applications)
+
+**👨‍💻 For Engineers (5 min):** [Key Code](#-key-code-highlights) → [Architecture](#architecture) → [Setup Guide](#setup-instructions)
+
+**🔍 For Hiring Managers (2 min):** [Results](#-pipeline-execution--results) → [Skills](#acknowledgments) → [Interactive Diagram](https://gitdiagram.com/Rehaman24/retail-etl-pipeline-airflow-gcp)
+
 ### 📊 Impact at a Glance
 
 | Metric | Before (Manual) | After (This Pipeline) | Improvement |
