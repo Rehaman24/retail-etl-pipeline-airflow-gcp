@@ -1129,7 +1129,7 @@ This is a portfolio project and I'm actively seeking feedback from data engineer
 
 ## 📫 Connect With Me
 
-- **LinkedIn:** [Your Profile](www.linkedin.com/in/rehmanali24)
+- **LinkedIn:** linkedin.com/in/rehmanali24
 - **Email:** rehamanalis1999@gmail.com
 
 
