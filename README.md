@@ -4,7 +4,7 @@
 
 [![Apache Airflow](https://img.shields.io/badge/Airflow-3-017CEE?style=flat-square&logo=Apache%20Airflow&logoColor=white)](https://airflow.apache.org/)
 [![BigQuery](https://img.shields.io/badge/BigQuery-4285F4?style=flat-square&logo=google-cloud&logoColor=white)](https://cloud.google.com/bigquery)
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.9-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![GCP](https://img.shields.io/badge/GCP-Cloud_Storage-4285F4?style=flat-square&logo=google-cloud&logoColor=white)](https://cloud.google.com/storage)
 
 **🎥 [Watch 3-Minute Demo](link-placeholder)** | **🔗 [Interactive Architecture](https://gitdiagram.com/Rehaman24/retail-etl-pipeline-airflow-gcp)** | **📊 [Jump to Results](#-business-impact--real-world-applications)**
