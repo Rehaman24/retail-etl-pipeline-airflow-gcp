@@ -23,7 +23,7 @@
 ## 🚀 Quick Start Guide
 
 **👔 For Recruiters (30 sec):**  
-📊 For Recruiters (30 sec): [TL;DR Summary](#tldr-summary) → [Watch Demo](https://www.loom.com/share/1662f6eedd4f4b878d2bc5052238ea75) → [Business Impact](#business-impact)
+[TL;DR Summary](#tldr-summary) → [Watch Demo](https://www.loom.com/share/1662f6eedd4f4b878d2bc5052238ea75) → [Business Impact](#business-impact)
 
 **👨‍💻 For Engineers (5 min):**  
 [Pipeline Components](#pipeline-components) → [Architecture](#architecture) → [Setup Instructions](#setup-instructions)
