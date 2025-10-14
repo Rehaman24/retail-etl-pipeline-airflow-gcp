@@ -7,7 +7,8 @@
 [![Python](https://img.shields.io/badge/Python-3.9-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![GCP](https://img.shields.io/badge/GCP-Cloud_Storage-4285F4?style=flat-square&logo=google-cloud&logoColor=white)](https://cloud.google.com/storage)
 
-**🎥 [Watch 3-Minute Demo](link-placeholder)** | **🔗 [Interactive Architecture](https://gitdiagram.com/Rehaman24/retail-etl-pipeline-airflow-gcp)** | **📊 [Jump to Results](#-business-impact--real-world-applications)**
+**[▶️ Watch the Full Demo on Loom (7 minutes)](https://www.loom.com/share/1662f6eedd4f4b878d2bc5052238ea75)
+ | **🔗 [Interactive Architecture](https://gitdiagram.com/Rehaman24/retail-etl-pipeline-airflow-gcp)** | **📊 [Jump to Results](#-business-impact--real-world-applications)**
 
 ## ⚡ TL;DR for Recruiters (30-Second Summary)
 
