@@ -365,7 +365,7 @@ location='US'
             ]
         }
     }
-)
+
 ---
 
 #### 2.2 Sales Staging Table
@@ -498,7 +498,7 @@ ON S.merchant_id = M.merchant_id
 ```
 ---
 
-3. **WHEN MATCHED** (Update existing records):
+2. **WHEN MATCHED** (Update existing records):
 ```
 WHEN MATCHED THEN
 UPDATE SET
@@ -513,7 +513,7 @@ T.last_update = S.last_update
 ```
 
 
-5. **WHEN NOT MATCHED** (Insert new records):
+3. **WHEN NOT MATCHED** (Insert new records):
 WHEN NOT MATCHED THEN
 ```
 INSERT (
