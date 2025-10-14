@@ -1138,6 +1138,11 @@ This is a portfolio project and I'm actively seeking feedback from data engineer
 - **Email:** rehamanalis1999@gmail.com
 
 
+## License
+
+This project is licensed under the MIT License.  
+Copyright (c) 2025 Rehman Ali.  
+Attribution required. Do not present this work as your own.
 
 
 
