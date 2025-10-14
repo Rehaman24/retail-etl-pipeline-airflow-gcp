@@ -681,9 +681,12 @@ cd retail-etl-pipeline-airflow-gcp
 ```
 
 
-### Step 2: Install Dependencies
+### Step 2: Deploy to Cloud Composer
 ```
-pip install -r requirements.txt
+- Upload airflow_walmart_data_bigquery_dag.py to your Composer environment’s DAGs folder in Google Cloud.
+- IDE: VS Code with Airflow extension recommended for code editing.
+- All dependencies are managed by Cloud Composer.
+
 ```
 ### Step 3: Configure GCP Connection in Airflow
 
