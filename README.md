@@ -37,8 +37,8 @@
 |--------|-----------------|----------------------|-------------|
 | **Processing Time** | 2-3 hours daily | 3 minutes | **95% faster** ⚡ |
 | **Error Rate** | 5-10% duplicates | 0% duplicates | **100% accuracy** ✅ |
-| **Weekly Time Saved** | - | 10-15 hours | **$500-750 value** 💰 |
-| **Scalability** | Breaks at 100K rows | Handles millions | **Unlimited** 🚀 |
+| **Manual steps required** | 5 steps per run | 0 (fully automated) | **100% automation** 🤖 |
+| **Scalability** | Breaks at 100K rows | Handles millions | **Unlimited**  |
 
   
 
